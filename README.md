@@ -1,19 +1,26 @@
 # [libpng_rvv](https://github.com/mschlaegl/libpng_rvv): A RISC-V Vector Optimized libpng
 
-(C) 2021 Manfred SCHLÄGL <manfred.schlaegl@gmx.at>
+(C) 2022 Manfred SCHLÄGL <manfred.schlaegl@gmx.at>
 
-**In this artical, we present [libpng_rvv](https://github.com/mschlaegl/libpng_rvv) optimized for the *RISC-V Vector Extension* (RVV)**, which is [currently under ratification](https://riscv.org/announcements/2021/12/riscv-ratifies-15-new-specifications).
+**In this article, we present [libpng_rvv](https://github.com/mschlaegl/libpng_rvv):
+A customized variant of [libpng](https://github.com/glennrp/libpng), which was optimized
+for RISC-V vector extension (RVV) using [RVVRadar](https://github.com/mschlaegl/RVVRadar)**
 
-libpng already provides infrastructure to support architecture specific implementations of filter types to improve performance.
+Libpng already provides infrastructure to support architecture specific implementations of filter types to improve performance.
 This includes implementations for Intel SSE2, ARM Neon, MIPS MSA, and PowerPC VSX which can be enabled at build time or in some cases automatically at run-time.
 The implementation presented here uses the same infrastructure to add support for, and improve performance on RISC-V Cores implementing RVV.
 
 The implementation provides a speedup of filter calculations on decompression of up to 5.43 (on Allwinner D1).
 It supports RVV drafts 0.7.1, 0.8, 0.9, 0.10 and release 1.0, and is available on github [libpng_rvv](https://github.com/mschlaegl/libpng_rvv). Furthermore the modification was also submitted to the *png-mgn-implement* mailing list.
 
-Development was done in the context of a bachelor theses at the Institute
-for Complex Systems (ICS), JKU Linz. Special thanks to Dr. Daniel Große and
-Lucas Klemmer, MSc for their advise and mentoring.
+
+The work was mainly done in the context of a bachelor theses at the Institute
+for Complex Systems (ICS), JKU Linz. With
+[RVVRadar: A Framework for Supporting the Programmer in Vectorization for RISC-V](https://www.ics.jku.at/files/2022GLSVLSI_RVVRadar.pdf)
+there is also a paper resulting from this work. A BibTex entry to cite to the
+paper can be found in the last section.
+Special thanks to Dr. Daniel Große and Lucas Klemmer, MSc for advise and
+mentoring.
 
 In the first part we describe the development and evaluation process using [RVVRadar](https://github.com/mschlaegl/RVVRadar). We then show how the evaluation can be reproduced and how [libpng_rvv](https://github.com/mschlaegl/libpng_rvv) can be built for hardware implementing one of the supported RVV versions.
 
@@ -297,3 +304,16 @@ make
 ## Additional Notes
  * [RVVRadar](https://github.com/mschlaegl/RVVRadar) contains not only PNG filter types, but also some other, more general algorithms. Since they are not part of the topic, they are not covered here. However, the result diagrams for them are available in [figures/rvvradar_c8dd25d911_q_r0_i100_s50000000_e50000000_all/results](https://github.com/mschlaegl/libpng_rvv-doc/tree/main/figures/rvvradar_c8dd25d911_q_r0_i100_s50000000_e50000000_all/results) and the raw results in [rvvradar_c8dd25d911_q_r0_i100_s50000000_e50000000_all.csv](https://github.com/mschlaegl/libpng_rvv-doc/blob/main/figures/rvvradar_c8dd25d911_q_r0_i100_s50000000_e50000000_all.csv) also contain them.
 
+
+## *RVVRadar: A Framework for Supporting the Programmer in Vectorization for RISC-V*
+
+[Lucas Klemmer, Manfred Schlaegl, and Daniel Große. RVVRadar: a framework for supporting the programmer in vectorization for RISC-V. In GLSVLSI, 2022](https://www.ics.jku.at/files/2022GLSVLSI_RVVRadar.pdf)
+
+```
+@InProceedings{KSG:2022,
+  author        = {Lucas Klemmer and Manfred Schlaegl and Daniel Gro{\ss}e},
+  title         = {{RVVRadar:} A Framework for Supporting the Programmer in Vectorization for {RISC-V}},
+  booktitle     = {ACM Great Lakes Symposium on VLSI},
+  year          = 2022
+}
+```
